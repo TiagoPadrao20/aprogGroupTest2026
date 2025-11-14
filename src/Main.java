@@ -10,8 +10,7 @@ public class Main {
     }
 
     private static void getMoodMap(int[][] array) {
-        System.out.println("Mood Map received");
-        for (int i = 0; i < array.length; i++) {
-        }
+        System.out.println("git ");
+
     }
 }
