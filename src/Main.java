@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        int[][] moodMap = getInputFromFile();
+        File file = new File("/Users/tiagopadrao/desktop/uni/prcmp/fileTest");
+        int[][] moodMap = getInputFromFile(file);
 
         //aqui, chamamos o metodo para fazer print apenas do header, passamos o tamanho do 1~array, que seria o array dos dias
         printDaysHeader(moodMap[0].length);
@@ -14,8 +15,7 @@ public class Main {
     }
 
     //metodo que recebemosu m ficheiro e convertemos para uma array
-    private static int[][] getInputFromFile() throws FileNotFoundException {
-        File file = new File("/Users/tiagopadrao/desktop/uni/prcmp/fileTest");
+    private static int[][] getInputFromFile(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
 
         //para ignorar a primeira linha do ficheiro
@@ -59,7 +59,6 @@ public class Main {
     private static void printMoodMapWithPeople(int[][] moodMap) {
         int people = moodMap.length;
         int days = moodMap[0].length;
-
 
         for (int p = 0; p < people; p++) {
             System.out.printf("Person#%-4d: ", p);
