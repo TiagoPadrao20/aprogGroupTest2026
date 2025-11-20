@@ -1,29 +1,44 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.Array;
 import java.util.Scanner;
 
 public class Main {
 
+    static final String FILE_NAME = "/Users/tiagopadrao/Documents/myOwnProjects/NB_1252037_1230618/src/fileTest";
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("/Users/tiagopadrao/desktop/uni/prcmp/fileTest");
+        File file = new File(FILE_NAME);
         int[][] moodMap = getInputFromFile(file);
 
         printDaysHeader(moodMap[0].length);
         printMoodMapWithPeople(moodMap);
     }
 
+    private static int[] getDimensionsOfArray(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        int[] dimensionsInteger = new int[2];
+        if (scanner.hasNextLine()) scanner.nextLine();
 
+        String lineWithDimensions = scanner.nextLine();
+        String[] dimensionsString = lineWithDimensions.split(" ");
+
+        dimensionsInteger[0] = Integer.parseInt(dimensionsString[0]);
+        dimensionsInteger[1] = Integer.parseInt(dimensionsString[1]);
+
+
+        return dimensionsInteger;
+
+
+    }
 
     private static int[][] getInputFromFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
 
         if (scanner.hasNextLine()) scanner.nextLine();
 
-        String lineWithDimensions = scanner.nextLine();
-        String[] dimensions = lineWithDimensions.split(" ");
-
-        int quantityOfPeople = Integer.parseInt(dimensions[0]);
-        int quantityOfDays = Integer.parseInt(dimensions[1]);
+        int[] dimensions = getDimensionsOfArray(file);
+        int quantityOfPeople = dimensions[0];
+        int quantityOfDays = dimensions[1];
 
         int[][] moodMap = new int[quantityOfPeople][quantityOfDays];
 
@@ -65,5 +80,16 @@ public class Main {
             }
             System.out.println();
         }
+    }
+
+    private static void calculateAverageMoodOfEachDay(int[][] moodMap, File file) throws FileNotFoundException {
+        int[] dimensions = getDimensionsOfArray(file);
+        int quantityOfPersons = dimensions[0];
+        int quantityOfDays = dimensions[1];
+        int[] mood = new int[quantityOfDays];
+        int sumOfMood = 0;
+        double average = 0.0;
+
+
     }
 }
