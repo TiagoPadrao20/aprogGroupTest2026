@@ -13,16 +13,6 @@ public class Main {
     }
 
 
-    private static void readFromFile(File file, String[] arr) throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
-        int index = 0;
-
-        while (scanner.hasNext() && index < arr.length) {
-            String word = scanner.next();
-            arr[index] = word;
-            index++;
-        }
-    }
 
     private static int[][] getInputFromFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
