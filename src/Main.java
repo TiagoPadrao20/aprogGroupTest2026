@@ -6,29 +6,13 @@ import java.util.Scanner;
 public class Main {
 
     static final String FILE_NAME = "/Users/tiagopadrao/Documents/myOwnProjects/NB_1252037_1230618/src/fileTest";
+
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File(FILE_NAME);
         int[][] moodMap = getInputFromFile(file);
 
-        printDaysHeader(moodMap[0].length);
-        printMoodMapWithPeople(moodMap);
-    }
 
-    private static int[] getDimensionsOfArray(File file) throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
-        int[] dimensionsInteger = new int[2];
-        if (scanner.hasNextLine()) scanner.nextLine();
-
-        String lineWithDimensions = scanner.nextLine();
-        String[] dimensionsString = lineWithDimensions.split(" ");
-
-        dimensionsInteger[0] = Integer.parseInt(dimensionsString[0]);
-        dimensionsInteger[1] = Integer.parseInt(dimensionsString[1]);
-
-
-        return dimensionsInteger;
-
-
+        calculateAverageMoodOfEachDay(moodMap);
     }
 
     private static int[][] getInputFromFile(File file) throws FileNotFoundException {
@@ -36,9 +20,11 @@ public class Main {
 
         if (scanner.hasNextLine()) scanner.nextLine();
 
-        int[] dimensions = getDimensionsOfArray(file);
-        int quantityOfPeople = dimensions[0];
-        int quantityOfDays = dimensions[1];
+        String lineWithDimensions = scanner.nextLine();
+        String[] dimensions = lineWithDimensions.split(" ");
+
+        int quantityOfPeople = Integer.parseInt(dimensions[0]);
+        int quantityOfDays = Integer.parseInt(dimensions[1]);
 
         int[][] moodMap = new int[quantityOfPeople][quantityOfDays];
 
@@ -82,13 +68,30 @@ public class Main {
         }
     }
 
-    private static void calculateAverageMoodOfEachDay(int[][] moodMap, File file) throws FileNotFoundException {
-        int[] dimensions = getDimensionsOfArray(file);
-        int quantityOfPersons = dimensions[0];
-        int quantityOfDays = dimensions[1];
-        int[] mood = new int[quantityOfDays];
+    public static void printMoodMapFormat(int[][] moodMap){
+        int person = moodMap.length;
+        int days = moodMap[0].length;
+
+        for (int i = 0; i < person; i++) {
+            System.out.printf("Person #%-2d:", i);
+            for (int j = 0; j < days; j++) {
+                System.out.printf("%-3d", moodMap[i][j]);
+                if (j < days - 1){
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    private static void calculateAverageMoodOfEachDay(int[][] moodMap) throws FileNotFoundException {
+        double[] mood = new double[moodMap[0].length];
+        int people = moodMap.length;
+        int days = moodMap[0].length;
+
         int sumOfMood = 0;
         double average = 0.0;
+
 
 
     }
