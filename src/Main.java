@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Array;
 import java.util.Scanner;
 
 public class Main {
@@ -55,30 +54,15 @@ public class Main {
         System.out.println();
     }
 
-    private static void printMoodMapWithPeople(int[][] moodMap) {
-        int people = moodMap.length;
-        int days = moodMap[0].length;
-
-        for (int p = 0; p < people; p++) {
-            System.out.printf("Person#%-4d: ", p);
-            for (int d = 0; d < days; d++) {
-                System.out.printf("%-3d", moodMap[p][d]);
-                if (d < days - 1) System.out.print(" ");
-            }
-            System.out.println();
-        }
-    }
-
-
     public static void printMoodMapFormat(int[][] moodMap) {
         int person = moodMap.length;
         int days = moodMap[0].length;
 
-        for (int i = 0; i < person; i++) {
-            System.out.printf("Person #%-2d:", i);
-            for (int j = 0; j < days; j++) {
-                System.out.printf("%-3d", moodMap[i][j]);
-                if (j < days - 1) {
+        for (int p = 0; p < person; p++) {
+            System.out.printf("Person #%-2d:", p);
+            for (int d = 0; d < days; d++) {
+                System.out.printf("%-3d", moodMap[p][d]);
+                if (d < days - 1) {
                     System.out.print(" ");
                 }
             }
