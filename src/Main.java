@@ -12,8 +12,9 @@ public class Main {
         int[][] moodMap = getInputFromFile(file);
 
 
-        calculateAverageMoodOfEachDay(moodMap);
     }
+
+    //a) Tiago
 
     private static int[][] getInputFromFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
@@ -43,7 +44,7 @@ public class Main {
         return moodMap;
     }
 
-    private static void printDaysHeader(int numberOfDays) {
+    private static void getDaysHeader(int numberOfDays) {
         System.out.print("day        : ");
         for (int day = 0; day < numberOfDays; day++) {
             System.out.printf("%-3d", day);
@@ -68,7 +69,8 @@ public class Main {
         }
     }
 
-    public static void printMoodMapFormat(int[][] moodMap){
+
+    public static void printMoodMapFormat(int[][] moodMap) {
         int person = moodMap.length;
         int days = moodMap[0].length;
 
@@ -76,7 +78,7 @@ public class Main {
             System.out.printf("Person #%-2d:", i);
             for (int j = 0; j < days; j++) {
                 System.out.printf("%-3d", moodMap[i][j]);
-                if (j < days - 1){
+                if (j < days - 1) {
                     System.out.print(" ");
                 }
             }
@@ -84,15 +86,32 @@ public class Main {
         }
     }
 
-    private static void calculateAverageMoodOfEachDay(int[][] moodMap) throws FileNotFoundException {
-        double[] mood = new double[moodMap[0].length];
-        int people = moodMap.length;
-        int days = moodMap[0].length;
+    //c) - Tiago
+    private static double[] calculateAverageMoodOfEachDay(int[][] moodMap) throws FileNotFoundException {
+        int quantityOfPeople = moodMap.length;
+        int quantityOfDays = moodMap[0].length;
+        double[] averageMood = new double[moodMap[0].length];
 
-        int sumOfMood = 0;
-        double average = 0.0;
-
-
-
+        for (int d = 0; d < quantityOfDays; d++) {
+            int sum = 0;
+            for (int p = 0; p < quantityOfPeople; p++) {
+                sum += moodMap[p][d];
+            }
+            averageMood[d] = (double) sum / quantityOfPeople;
+        }
+        return averageMood;
     }
+
+    //c) - Tiago
+    private static void printAverageMood(int[][] moodMap) throws FileNotFoundException {
+        double[] averageMood = calculateAverageMoodOfEachDay(moodMap);
+        getDaysHeader(averageMood.length);
+        System.out.print("mood:       ");
+        for (int d = 0; d < averageMood.length; d++) {
+            System.out.printf("%.1f ", averageMood[d]);
+
+        }
+    }
+
+
 }
