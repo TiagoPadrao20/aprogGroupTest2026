@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    static final String FILE_NAME = "/Users/tiagopadrao/Documents/myOwnProjects/NB_1252037_1230618/src/fileTest";
+    static final String FILE_NAME = "C:\\Users\\Luis Cerqueira\\Documents\\aprog\\aprogGroupTest2026\\src\\fileTest";
 
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File(FILE_NAME);
@@ -53,13 +53,13 @@ public class Main {
         System.out.print("-----------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
         System.out.println();
     }
-
-    public static void printMoodMapFormat(int[][] moodMap) {
+    //B) - Luis
+    private static void printMoodMapFormat(int[][] moodMap) {
         int person = moodMap.length;
         int days = moodMap[0].length;
 
         for (int p = 0; p < person; p++) {
-            System.out.printf("Person #%-2d:", p);
+            System.out.printf("Person #%-4d:", p);
             for (int d = 0; d < days; d++) {
                 System.out.printf("%-3d", moodMap[p][d]);
                 if (d < days - 1) {
@@ -96,6 +96,22 @@ public class Main {
 
         }
     }
-
+    //D) - Luis
+    private static double[] calculateAverageMoodEachPerson(int[][] moodMap){
+        int quantityOfPeople = moodMap.length;
+        int quantityOfDays = moodMap[0].length;
+        double[] averageMoodPerson = new double[moodMap.length];
+        for (int p = 0; p < quantityOfPeople; p++) {
+            int sum = 0;
+            for (int d = 0; d < quantityOfDays; d++) {
+                sum += moodMap[p][d];
+            }
+            averageMoodPerson[p] = (double) sum / quantityOfDays;
+        }
+        return averageMoodPerson;
+    }
+    //D) - Luis
+    public static void printAverageMoodPerson(int[][] moodMap){
+    }
 
 }
