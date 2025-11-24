@@ -1,24 +1,51 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    static final String FILE_NAME = "C:\\Users\\Luis Cerqueira\\Documents\\aprog\\aprogGroupTest2026\\src\\fileTest";
+    static final String FILE_NAME = "fileTest";
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File(FILE_NAME);
-        int[][] moodMap = getInputFromFile(file);
+        int[][] moodMap = getInputFromFile(FILE_NAME);
+        getDaysHeader(moodMap[1].length);
 
+        calculateDaysWithHighestAverageMood(calculateAverageMoodOfEachDay(moodMap));
+        printAverageMoodPerson(calculateAverageMoodEachPerson(moodMap));
+        printPercentageOfHumor(calculatePecentageOfHumor(moodMap));
 
     }
 
     //a) Tiago
+    private static int[][] getInputFromKeyboard() {
 
-    private static int[][] getInputFromFile(File file) throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(System.in);
 
-        if (scanner.hasNextLine()) scanner.nextLine();
+        scanner.nextLine();
+
+        String lineWithDimensions = scanner.nextLine();
+        String[] dimensions = lineWithDimensions.split(" ");
+
+        int quantityOfPeople = Integer.parseInt(dimensions[0]);
+        int quantityOfDays = Integer.parseInt(dimensions[1]);
+
+        int[][] moodMap = new int[quantityOfPeople][quantityOfDays];
+
+
+        for (int i = 0; i < quantityOfPeople; i++) {
+            for (int j = 0; j < quantityOfDays; j++) {
+                moodMap[i][j] = scanner.nextInt();
+            }
+        }
+
+        return moodMap;
+    }
+
+
+    private static int[][] getInputFromFile(String fileName) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(fileName));
+        scanner.nextLine();
 
         String lineWithDimensions = scanner.nextLine();
         String[] dimensions = lineWithDimensions.split(" ");
@@ -44,7 +71,7 @@ public class Main {
     }
 
     private static void getDaysHeader(int numberOfDays) {
-        System.out.print("day        : ");
+        System.out.print("day:         ");
         for (int day = 0; day < numberOfDays; day++) {
             System.out.printf("%-3d", day);
             if (day < numberOfDays - 1) System.out.print(" ");
@@ -53,13 +80,13 @@ public class Main {
         System.out.print("-----------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
         System.out.println();
     }
-    //B) - Luis
-    private static void printMoodMapFormat(int[][] moodMap) {
+
+    public static void printMoodMapFormat(int[][] moodMap) {
         int person = moodMap.length;
         int days = moodMap[0].length;
-
+        getDaysHeader(days);
         for (int p = 0; p < person; p++) {
-            System.out.printf("Person #%-4d:", p);
+            System.out.printf("Person #%-2d : ", p);
             for (int d = 0; d < days; d++) {
                 System.out.printf("%-3d", moodMap[p][d]);
                 if (d < days - 1) {
@@ -95,9 +122,45 @@ public class Main {
             System.out.printf("%.1f ", averageMood[d]);
 
         }
+        System.out.println();
     }
+
+
+    //E) Tiago
+    private static void calculateDaysWithHighestAverageMood(double[] averageMoodArray) {
+        double highestAverageMood = 0.0;
+        int count = 0;
+
+        for (int i = 0; i < averageMoodArray.length; i++) {
+            if (averageMoodArray[i] > highestAverageMood) {
+                highestAverageMood = averageMoodArray[i];
+            }
+        }
+
+        int[] tempArray = new int[averageMoodArray.length];
+
+        for (int i = 0; i < averageMoodArray.length; i++) {
+            if (averageMoodArray[i] == highestAverageMood) {
+                tempArray[count++] = i;
+            }
+        }
+
+        int[] highestAverageMoodDays = Arrays.copyOf(tempArray, count);
+
+        System.out.printf("e) Days with the highest average mood %.1f : ", highestAverageMood);
+        for (int i = 0; i < highestAverageMoodDays.length; i++) {
+            System.out.print(highestAverageMoodDays[i] + " ");
+
+        }
+        System.out.println();
+        System.out.println();
+
+
+    }
+
+
     //D) - Luis
-    private static double[] calculateAverageMoodEachPerson(int[][] moodMap){
+    private static double[] calculateAverageMoodEachPerson(int[][] moodMap) {
         int quantityOfPeople = moodMap.length;
         int quantityOfDays = moodMap[0].length;
         double[] averageMoodPerson = new double[moodMap.length];
@@ -110,8 +173,44 @@ public class Main {
         }
         return averageMoodPerson;
     }
+
     //D) - Luis
-    public static void printAverageMoodPerson(int[][] moodMap){
+    public static void printAverageMoodPerson(double[] averageMoodPerson) {
+        System.out.println("d) Average os each person's mood:");
+        for (int p = 0; p < averageMoodPerson.length; p++) {
+            System.out.printf("Person #%d : %.1f%n", p, averageMoodPerson[p]);
+        }
     }
+
+    //F) - Luis
+    private static double[] calculatePecentageOfHumor(int[][] moodMap) {
+        int quantityOfPeople = moodMap.length;
+        int quantityOfDays = moodMap[0].length;
+        int totalOfValues = quantityOfPeople * quantityOfDays;
+
+        int[] countHumor = new int[6]; //talvez seja 6 em vez de 5 mas nao tenho certeza, são os valores do humor
+        for (int p = 0; p < quantityOfPeople; p++) {
+            for (int d = 0; d < quantityOfDays; d++) {
+                int Humor = moodMap[p][d];    //variavel humor corresponde a mood, só me lembrei de humor que tb da em ingles
+                if (Humor >= 1 && Humor <= 5) {
+                    countHumor[Humor]++;
+                }
+            }
+        }
+        double[] percentageOfHumor = new double[6]; //aqui tambem talvez seja 6
+        for (int level = 1; level <= 5; level++) {
+            percentageOfHumor[level] = (countHumor[level] + 100.0) / totalOfValues;
+        }
+        return percentageOfHumor;
+    }
+
+    //F) - Luis
+    private static void printPercentageOfHumor(double[] percentageOfHumor) {
+        System.out.println("f) Percentage of mood levels: ");
+        for (int level = 5; level >= 1; level--) {
+            System.out.printf("Mood #%d: %.1f%%%n", level, percentageOfHumor[level]);
+        }
+    }
+
 
 }
