@@ -11,10 +11,12 @@ public class Main {
         int[][] moodMap = getInputFromFile(FILE_NAME);
         getDaysHeader(moodMap[1].length);
 
-        calculateDaysWithHighestAverageMood(calculateAverageMoodOfEachDay(moodMap));
-        printAverageMoodPerson(calculateAverageMoodEachPerson(moodMap));
-        printPercentageOfHumor(calculatePecentageOfHumor(moodMap));
-
+        printMoodMapFormat(moodMap); //b)
+        printAverageMood(moodMap);//c)
+        printAverageMoodPerson(calculateAverageMoodEachPerson(moodMap));//d)
+        calculateDaysWithHighestAverageMood(calculateAverageMoodOfEachDay(moodMap));//e)
+        printPercentageOfHumor(calculatePecentageOfHumor(moodMap));//f)
+        printMoodCharts(moodMap);//h)
     }
 
     //a) Tiago
@@ -80,10 +82,11 @@ public class Main {
         System.out.print("-----------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
         System.out.println();
     }
-
+    //B) - Luis
     public static void printMoodMapFormat(int[][] moodMap) {
         int person = moodMap.length;
         int days = moodMap[0].length;
+        System.out.println("b) Mood (level/day(person)");
         getDaysHeader(days);
         for (int p = 0; p < person; p++) {
             System.out.printf("Person #%-2d : ", p);
@@ -199,7 +202,7 @@ public class Main {
         }
         double[] percentageOfHumor = new double[6]; //aqui tambem talvez seja 6
         for (int level = 1; level <= 5; level++) {
-            percentageOfHumor[level] = (countHumor[level] + 100.0) / totalOfValues;
+            percentageOfHumor[level] = (countHumor[level] * 100.0) / totalOfValues;
         }
         return percentageOfHumor;
     }
@@ -212,5 +215,48 @@ public class Main {
         }
     }
 
+    //H) - Luis
+    private static void printMoodCharts(int[][] moodMap) {
+        int quantityOfPeople = moodMap.length;
+        int quantityOfDays = moodMap[0].length;
 
+        System.out.println("h) People's Mood Level Charts:");
+
+        for (int p = 0; p < quantityOfPeople; p++) {
+            System.out.printf("Person #%d:%n", p);
+
+            int minLevel = 5;
+            int maxLevel = 1;
+
+            for (int d = 0; d < quantityOfDays; d++) {
+                int mood = moodMap[p][d];
+                if (mood < minLevel) minLevel = mood;
+                if (mood > maxLevel) maxLevel = mood;
+            }
+
+            for (int level = maxLevel; level >= minLevel; level--) {
+                System.out.printf("%d |", level);
+
+                for (int d = 0; d < quantityOfDays; d++) {
+                    if (moodMap[p][d] == level)
+                        System.out.print("*");
+                    else
+                        System.out.print(" ");
+                }
+                System.out.println();
+            }
+
+            System.out.print("Mood +");
+            for (int d = 0; d < quantityOfDays; d++) {
+                System.out.print("-");
+            }
+            System.out.println();
+
+            System.out.print("    ");  // 4 espaços antes da escala
+            for (int d = 0; d < quantityOfDays; d += 5) {
+                System.out.printf("%-5d", d);
+            }
+            System.out.println("\n");
+        }
+    }
 }
