@@ -17,6 +17,7 @@ public class Main {
         calculateDaysWithHighestAverageMood(calculateAverageMoodOfEachDay(moodMap));//e)
         printPercentageOfHumor(calculatePecentageOfHumor(moodMap));//f)
         printMoodCharts(moodMap);//h)
+        printSimilarHumorPerson(moodMap);//j)
     }
 
     //a) Tiago
@@ -81,6 +82,7 @@ public class Main {
         System.out.println();
         System.out.print("-----------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
         System.out.println();
+
     }
     //B) - Luis
     public static void printMoodMapFormat(int[][] moodMap) {
@@ -98,6 +100,7 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     //c) - Tiago
@@ -119,12 +122,14 @@ public class Main {
     //c) - Tiago
     private static void printAverageMood(int[][] moodMap) throws FileNotFoundException {
         double[] averageMood = calculateAverageMoodOfEachDay(moodMap);
+        System.out.println("c) Average mood each day: ");
         getDaysHeader(averageMood.length);
         System.out.print("mood:       ");
         for (int d = 0; d < averageMood.length; d++) {
             System.out.printf("%.1f ", averageMood[d]);
 
         }
+        System.out.println();
         System.out.println();
     }
 
@@ -183,6 +188,7 @@ public class Main {
         for (int p = 0; p < averageMoodPerson.length; p++) {
             System.out.printf("Person #%d : %.1f%n", p, averageMoodPerson[p]);
         }
+        System.out.println();
     }
 
     //F) - Luis
@@ -213,6 +219,7 @@ public class Main {
         for (int level = 5; level >= 1; level--) {
             System.out.printf("Mood #%d: %.1f%%%n", level, percentageOfHumor[level]);
         }
+        System.out.println();
     }
 
     //H) - Luis
@@ -257,6 +264,44 @@ public class Main {
                 System.out.printf("%-5d", d);
             }
             System.out.println("\n");
+        }
+    }
+
+    //J) - Luis
+    private static void printSimilarHumorPerson(int[][] moodMap) {
+        int quantityOfPerson = moodMap.length;
+        int quantityOfDays = moodMap[0].length;
+        int bestPerson1 = -1;           //começam com -1 para dizer que não existe par ainda;
+        int bestPerson2 = -1;
+        int bestEqualDays = 0;
+
+        for (int i = 0; i < quantityOfPerson - 1; i++) {
+            for (int j = i + 1; j < quantityOfPerson; j++) {
+                
+                int equalDays = 0;
+                for (int d = 0; d < quantityOfDays; d++) {
+                    if (moodMap[i][d] == moodMap[j][d]) {
+                        equalDays++;
+                    }
+                }
+                if (equalDays > bestEqualDays) {
+                    bestEqualDays = equalDays;
+                    bestPerson1 = i;
+                    bestPerson2 = j;
+                } else if (equalDays == bestEqualDays && equalDays > 0) {
+                    if (bestPerson1 == -1 || i < bestPerson2 || i == bestPerson1 && j < bestPerson2) {
+                        bestPerson1 = i;
+                        bestPerson2 = j;
+                    }
+                }
+            }
+        }
+        System.out.println("j) People with the most similar moods: ");
+
+        if (bestEqualDays == 0) {
+            System.out.println("Nenhum");
+        } else {
+            System.out.printf("(Person #%d and Person #%d have the same mood on %d days)%n", bestPerson1, bestPerson2, bestEqualDays);
         }
     }
 }
