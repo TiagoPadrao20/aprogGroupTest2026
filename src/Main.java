@@ -9,14 +9,15 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         int[][] moodMap = getInputFromFile(FILE_NAME);
-        getDaysHeader(moodMap[1].length);
 
         printMoodMapFormat(moodMap); //b)
         printAverageMood(moodMap);//c)
         printAverageMoodPerson(calculateAverageMoodEachPerson(moodMap));//d)
         calculateDaysWithHighestAverageMood(calculateAverageMoodOfEachDay(moodMap));//e)
         printPercentageOfHumor(calculatePecentageOfHumor(moodMap));//f)
+        printPeopleWithEmotionalDisorder(moodMap); //g)
         printMoodCharts(moodMap);//h)
+        printPeopleWhoNeedsTherapy(moodMap); //i)
         printSimilarHumorPerson(moodMap);//j)
     }
 
@@ -84,6 +85,7 @@ public class Main {
         System.out.println();
 
     }
+
     //B) - Luis
     public static void printMoodMapFormat(int[][] moodMap) {
         int person = moodMap.length;
@@ -137,7 +139,6 @@ public class Main {
     //E) Tiago
     private static void calculateDaysWithHighestAverageMood(double[] averageMoodArray) {
         double highestAverageMood = 0.0;
-        int count = 0;
 
         for (int i = 0; i < averageMoodArray.length; i++) {
             if (averageMoodArray[i] > highestAverageMood) {
@@ -146,6 +147,7 @@ public class Main {
         }
 
         int[] tempArray = new int[averageMoodArray.length];
+        int count = 0;
 
         for (int i = 0; i < averageMoodArray.length; i++) {
             if (averageMoodArray[i] == highestAverageMood) {
@@ -160,9 +162,9 @@ public class Main {
             System.out.print(highestAverageMoodDays[i] + " ");
 
         }
-        System.out.println();
-        System.out.println();
 
+        System.out.println();
+        System.out.println();
 
     }
 
@@ -277,7 +279,7 @@ public class Main {
 
         for (int i = 0; i < quantityOfPerson - 1; i++) {
             for (int j = i + 1; j < quantityOfPerson; j++) {
-                
+
                 int equalDays = 0;
                 for (int d = 0; d < quantityOfDays; d++) {
                     if (moodMap[i][d] == moodMap[j][d]) {
@@ -303,5 +305,70 @@ public class Main {
         } else {
             System.out.printf("(Person #%d and Person #%d have the same mood on %d days)%n", bestPerson1, bestPerson2, bestEqualDays);
         }
+        System.out.println();
+
+    }
+
+
+    private static void printPeopleWithEmotionalDisorder(int[][] moodMap) {
+        int[] peopleWithEmotionalDisorder = getPeopleWithEmotionalDisorder(moodMap);
+        System.out.println("g) People with emotional disorders: ");
+
+        for (int people = 0; people < peopleWithEmotionalDisorder.length; people++) {
+            if (peopleWithEmotionalDisorder[people] != 1) {
+                System.out.printf("Person #%d : %d consecutive days %n", people, peopleWithEmotionalDisorder[people]);
+            }
+        }
+        System.out.println();
+    }
+
+    private static int[] getPeopleWithEmotionalDisorder(int[][] moodMap) {
+
+        int[] peopleWithEmotionalDisorder = new int[moodMap.length];
+
+        for (int people = 0; people < moodMap.length; people++) {
+            int consecutiveEmotionalDays = 0;
+            int highConsecutiveEmotionalDays = 0;
+
+            for (int days = 0; days < moodMap[0].length; days++) {
+                if (moodMap[people][days] < 3) {
+                    consecutiveEmotionalDays++;
+                } else {
+                    if (consecutiveEmotionalDays > highConsecutiveEmotionalDays) {
+                        highConsecutiveEmotionalDays = consecutiveEmotionalDays;
+                    }
+                    consecutiveEmotionalDays = 0;
+                }
+            }
+            if (consecutiveEmotionalDays > highConsecutiveEmotionalDays) {
+                highConsecutiveEmotionalDays = consecutiveEmotionalDays;
+            }
+
+            peopleWithEmotionalDisorder[people] = highConsecutiveEmotionalDays;
+        }
+
+        return peopleWithEmotionalDisorder;
+    }
+
+
+    private static void printPeopleWhoNeedsTherapy(int[][] moodMap) {
+        int[] peopleWithEmotionalDisorder = getPeopleWithEmotionalDisorder(moodMap);
+
+        System.out.println("i) Recommended therapy: ");
+
+        for (int people = 0; people < peopleWithEmotionalDisorder.length; people++) {
+            int consecutiveDaysWithLowMood = peopleWithEmotionalDisorder[people];
+
+            if (consecutiveDaysWithLowMood >= 2) {
+                System.out.printf(
+                        "Person #%d : %s%n",
+                        people,
+                        (consecutiveDaysWithLowMood >= 5)
+                                ? "psychological support"
+                                : "listen to music"
+                );
+            }
+        }
+        System.out.println();
     }
 }
