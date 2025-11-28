@@ -87,7 +87,6 @@ public class Main {
 
         }
         System.out.println("|");
-        System.out.println();
 
     }
 
@@ -249,7 +248,7 @@ public class Main {
             }
 
             for (int level = maxLevel; level >= minLevel; level--) {
-                System.out.printf("%d |", level);
+                System.out.printf("%4d |", level);
 
                 for (int d = 0; d < quantityOfDays; d++) {
                     if (moodMap[p][d] == level)
