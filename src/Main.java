@@ -142,29 +142,20 @@ public class Main {
 
     //E) Tiago
     private static void calculateDaysWithHighestAverageMood(double[] averageMoodArray) {
-        double highestAverageMood = 0.0;
 
-        for (int i = 0; i < averageMoodArray.length; i++) {
-            if (averageMoodArray[i] > highestAverageMood) {
-                highestAverageMood = averageMoodArray[i];
+        double highestAverageMood = averageMoodArray[0];
+
+        for (int day = 1; day < averageMoodArray.length; day++) {
+            if (averageMoodArray[day] > highestAverageMood) {
+                highestAverageMood = averageMoodArray[day];
             }
         }
-
-        int[] tempArray = new int[averageMoodArray.length];
-        int count = 0;
-
-        for (int i = 0; i < averageMoodArray.length; i++) {
-            if (averageMoodArray[i] == highestAverageMood) {
-                tempArray[count++] = i;
-            }
-        }
-
-        int[] highestAverageMoodDays = Arrays.copyOf(tempArray, count);
 
         System.out.printf("e) Days with the highest average mood %.1f : ", highestAverageMood);
-        for (int i = 0; i < highestAverageMoodDays.length; i++) {
-            System.out.print(highestAverageMoodDays[i] + " ");
-
+        for (int day = 0; day < averageMoodArray.length; day++) {
+            if (averageMoodArray[day] == highestAverageMood) {
+                System.out.print(day + " ");
+            }
         }
 
         System.out.println();
