@@ -81,7 +81,12 @@ public class Main {
             if (day < numberOfDays - 1) System.out.print(" ");
         }
         System.out.println();
-        System.out.print("-----------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|");
+        System.out.print("-----------");
+        for (int i = 0; i < numberOfDays; i++) {
+            System.out.print("|---");
+
+        }
+        System.out.println("|");
         System.out.println();
 
     }
@@ -202,9 +207,9 @@ public class Main {
         int[] countHumor = new int[6]; //talvez seja 6 em vez de 5 mas nao tenho certeza, são os valores do humor
         for (int p = 0; p < quantityOfPeople; p++) {
             for (int d = 0; d < quantityOfDays; d++) {
-                int Humor = moodMap[p][d];    //variavel humor corresponde a mood, só me lembrei de humor que tb da em ingles
-                if (Humor >= 1 && Humor <= 5) {
-                    countHumor[Humor]++;
+                int humor = moodMap[p][d];    //variavel humor corresponde a mood, só me lembrei de humor que tb da em ingles
+                if (humor >= 1 && humor <= 5) {
+                    countHumor[humor]++;
                 }
             }
         }
@@ -309,18 +314,8 @@ public class Main {
 
     }
 
+    //g) tiago
 
-    private static void printPeopleWithEmotionalDisorder(int[][] moodMap) {
-        int[] peopleWithEmotionalDisorder = getPeopleWithEmotionalDisorder(moodMap);
-        System.out.println("g) People with emotional disorders: ");
-
-        for (int people = 0; people < peopleWithEmotionalDisorder.length; people++) {
-            if (peopleWithEmotionalDisorder[people] != 1) {
-                System.out.printf("Person #%d : %d consecutive days %n", people, peopleWithEmotionalDisorder[people]);
-            }
-        }
-        System.out.println();
-    }
 
     private static int[] getPeopleWithEmotionalDisorder(int[][] moodMap) {
 
@@ -350,7 +345,21 @@ public class Main {
         return peopleWithEmotionalDisorder;
     }
 
+    //g) tiago
+    private static void printPeopleWithEmotionalDisorder(int[][] moodMap) {
+        int[] peopleWithEmotionalDisorder = getPeopleWithEmotionalDisorder(moodMap);
+        System.out.println("g) People with emotional disorders: ");
 
+        for (int people = 0; people < peopleWithEmotionalDisorder.length; people++) {
+            if (peopleWithEmotionalDisorder[people] != 1) {
+                System.out.printf("Person #%d : %d consecutive days %n", people, peopleWithEmotionalDisorder[people]);
+            }
+        }
+        System.out.println();
+    }
+
+
+    //i) Tiago
     private static void printPeopleWhoNeedsTherapy(int[][] moodMap) {
         int[] peopleWithEmotionalDisorder = getPeopleWithEmotionalDisorder(moodMap);
 
