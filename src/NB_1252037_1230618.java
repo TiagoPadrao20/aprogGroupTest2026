@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Main {
+public class NB_1252037_1230618 {
 
     static final String FILE_NAME = "fileTest";
 
