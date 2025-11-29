@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -256,7 +255,7 @@ public class Main {
             }
             System.out.println();
 
-            System.out.print("    ");  // 4 espaços antes da escala
+            System.out.print("      ");  // 4 espaços antes da escala
             for (int d = 0; d < quantityOfDays; d += 5) {
                 System.out.printf("%-5d", d);
             }
