@@ -20,11 +20,11 @@ public class Main {
         printSimilarHumorPerson(moodMap);//j)
     }
 
+
     //a) Tiago
     private static int[][] getInputFromKeyboard() {
 
         Scanner scanner = new Scanner(System.in);
-
         scanner.nextLine();
 
         String lineWithDimensions = scanner.nextLine();
@@ -34,7 +34,6 @@ public class Main {
         int quantityOfDays = Integer.parseInt(dimensions[1]);
 
         int[][] moodMap = new int[quantityOfPeople][quantityOfDays];
-
 
         for (int i = 0; i < quantityOfPeople; i++) {
             for (int j = 0; j < quantityOfDays; j++) {
@@ -180,7 +179,7 @@ public class Main {
 
     //D) - Luis
     public static void printAverageMoodPerson(double[] averageMoodPerson) {
-        System.out.println("d) Average os each person's mood:");
+        System.out.println("d) Average of each person's mood:");
         for (int p = 0; p < averageMoodPerson.length; p++) {
             System.out.printf("Person #%d : %.1f%n", p, averageMoodPerson[p]);
         }
@@ -292,7 +291,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("j) People with the most similar moods: ");
+        System.out.print("j) People with the most similar moods: ");
 
         if (bestEqualDays == 0) {
             System.out.println("Nenhum");
