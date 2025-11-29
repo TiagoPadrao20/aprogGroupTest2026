@@ -150,7 +150,7 @@ public class Main {
             }
         }
 
-        System.out.printf("e) Days with the highest average mood %.1f : ", highestAverageMood);
+        System.out.printf("e) Days with the highest average mood (%.1f) : " , highestAverageMood);
         for (int day = 0; day < averageMoodArray.length; day++) {
             if (averageMoodArray[day] == highestAverageMood) {
                 System.out.print(day + " ");
